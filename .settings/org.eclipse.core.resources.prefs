@@ -1,3 +1,11 @@
 eclipse.preferences.version=1
-encoding//src/weibo/dbconnector.py=utf-8
-encoding//src/weibo/weibo_trans.py=utf-8
+encoding//src/test/dbconnector.py=utf-8
+encoding//src/test/distribution.py=utf-8
+encoding//src/test/weibo_trans.py=utf-8
+encoding//src/weibo/Adb2file.py=utf-8
+encoding//src/weibo/Bload_area.py=utf-8
+encoding//src/weibo/Ccandidate.py=utf-8
+encoding//src/weibo/Daccurate_match.py=utf-8
+encoding//src/weibo/old/AreaModeltest.py=utf-8
+encoding//src/weibo/old/Bload_area.py=utf-8
+encoding//src/weibo/old/Cevaluate_area.py=utf-8
