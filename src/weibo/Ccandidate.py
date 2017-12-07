@@ -11,7 +11,7 @@ import numpy as np
 
 def loaddata(fpath, batchstr, batchtype, sets):
     uidlist = np.loadtxt(fpath + 'uidlist_' + batchtype + "_" + sets + "_" + batchstr, dtype=np.str, delimiter="\t")
-    uidcity_list = np.loadtxt(fpath + 'uid_city_' + batchtype + "_" + sets + "_" + batchstr, dtype=np.str, delimiter="\t")
+    uidcity_list = np.loadtxt(fpath + 'uid_city_common_' + batchtype + "_" + sets + "_" + batchstr, dtype=np.str, delimiter="\t")
     return uidlist, uidcity_list
 
 def getlabeluid(uidlist_a, uidlist_b):
