@@ -13,7 +13,7 @@ def dbInfo():
     cur = conn.cursor()
     return conn, cur
 
-def get_uidlist(conn,cur):
+def get_uidlist(conn,cur):  
     uidct = cur.execute("select uid from uid_city_over_3")
     dts = cur.fetchmany(uidct)
     conn.commit()

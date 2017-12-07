@@ -51,7 +51,7 @@ def save2file(fpath, batchstr, batchtype, sets, uidlist, weibolist):
     fout.close()
 
 def save2file_bin(fpath, batchstr, batchtype, sets, uidlist, weibolist):
-    fout = open(fpath + "uid_city_bin" + batchtype + "_" + sets + "_" + batchstr, "wb")
+    fout = open(fpath + "uid_city_bin_" + batchtype + "_" + sets + "_" + batchstr, "wb")
     for uid in uidlist: #获取无序微博列表 lts 是 numpy.ndarray
         lts = get_weibolist_by_uid(uid, weibolist) #统计,并按从大到小顺序排序
         eles, ele_ct, total_ct, bin_ct = ele_ct_sort(lts)
@@ -63,22 +63,18 @@ def save2file_bin(fpath, batchstr, batchtype, sets, uidlist, weibolist):
             fout.write(str(ele_ct[ele_id])+"\t")
         fout.write("\n")
     fout.close()
-    
-def roundHandler(fpath, batchstr, batchtype):
+ 
+
+if __name__ == '__main__':
+    fpath = "/Users/alibaba/Documents/workspace/python/pytest/doubanprocess/src/weibo/data/"
+    batchstr = "3"
+    batchtype = "half"
     sets_a = "a"
     sets_b = "b"
-    uidlist_a, weibolist_a = loaddata(fpath, batchstr, batchtype, sets_a)
-    uidlist_b, weibolist_b = loaddata(fpath, batchstr, batchtype, sets_b)
+    uidlist_a,weibolist_a=loaddata(fpath, batchstr, batchtype,sets_a)
+    uidlist_b,weibolist_b=loaddata(fpath, batchstr, batchtype,sets_b)
 #     save2file(fpath, batchstr, batchtype, sets_a, uidlist_a, weibolist_a)
 #     save2file(fpath, batchstr, batchtype, sets_b, uidlist_b, weibolist_b)
     save2file_bin(fpath, batchstr, batchtype, sets_a, uidlist_a, weibolist_a)
     save2file_bin(fpath, batchstr, batchtype, sets_b, uidlist_b, weibolist_b)
-
-if __name__ == '__main__':
-    fpath = "./data/"
-    batchtype = "new"
-    for batchno in range(0,5):
-        batchstr=str(batchno)
-        roundHandler(fpath, batchstr, batchtype)
-        
         

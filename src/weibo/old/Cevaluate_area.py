@@ -3,9 +3,6 @@
 Created on 2017年11月30日
 
 @author: alibaba
-
-
-
 '''
 import numpy as np
 
@@ -37,7 +34,10 @@ def getresult(uidcity_list_a, uidcity_list_b):
                 fp_ct+=1
     return  len(tp_uid_list), fp_ct
 
-def roundHandler(fpath, batchstr, batchtype):
+if __name__ == '__main__':
+    fpath = "/Users/alibaba/Documents/workspace/python/pytest/doubanprocess/src/weibo/data/"
+    batchstr = "3"
+    batchtype = "half"
     sets_a = "a"
     sets_b = "b"
     uidlist_a, uidcity_list_a = loaddata(fpath, batchstr, batchtype, sets_a)
@@ -46,12 +46,7 @@ def roundHandler(fpath, batchstr, batchtype):
     label_ct = len(labellist)
     print str(label_ct)
     tp_ct, fp_ct = getresult(uidcity_list_a, uidcity_list_b)
-    print "precision: " + str(float(tp_ct) / float(tp_ct + fp_ct))
-    print "recall: " + str(float(tp_ct) / float(label_ct))
     
-if __name__ == '__main__':
-    fpath = "./data/"
-    batchtype = "new"
-    for batchno in range(0,5):
-        batchstr=str(batchno)
-        roundHandler(fpath, batchstr, batchtype)
+    print "precision: " + str(float(tp_ct) / float(tp_ct + fp_ct))
+    print "recall: "+str(float(tp_ct) / float(label_ct))
+    
