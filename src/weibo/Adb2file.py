@@ -34,20 +34,20 @@ def get_weibolist(uid,conn,cur,preDay,sufDay):
     '''
             自动获取80%的数据
     '''
-    weiboct = cur.execute("select msg_city from weibo where uid=%s "+" and msg_city<>'' and msg_city<>'" + 
+    weiboct = cur.execute("select msg_city,substr(real_date,9,2),mid,ip_addr from weibo where uid=%s "+" and msg_city<>'' and msg_city<>'" + 
         "白山".decode("utf8") + "' and real_date>=%s and real_date<%s",
                           (uid,preDay,sufDay))
     dts = cur.fetchmany(weiboct)
     conn.commit()
     tmp_list=[]
     for dt in dts:
-        tmp_list.append(str(dt[0].encode("utf-8")))
+        tmp_list.append(str(dt[0].encode("utf-8"))+"\t"+str(dt[1])+"\t"+str(dt[2])+"\t"+str(dt[3]))
     return random.sample(tmp_list,len(tmp_list)*8/10),uid
     #return tmp_list,uid
 
 def uid_extract_save(uidlist,ct,filestr):
     new_uidlist=random.sample(uidlist,ct)
-    fout=open("./data/uidlist_"+filestr,"wb")
+    fout=open("./data2/uidlist_"+filestr,"wb")
     for uid in new_uidlist:
         fout.write(uid)
         fout.write("\n")
@@ -58,8 +58,8 @@ def weibo_get_save(uidlist_a, uidlist_b, conn, cur, preDay, sufDay,filestr_a,fil
     print "length of uidlist_"+ filestr_a+":"+ str(len(uidlist_a))
     i_a=0
     i_b=0
-    fout_a=open("./data/weibolist_"+filestr_a,"wb")
-    fout_b=open("./data/weibolist_"+filestr_b,"wb")
+    fout_a=open("./data2/weibolist_"+filestr_a,"wb")
+    fout_b=open("./data2/weibolist_"+filestr_b,"wb")
     for uid in uidlist_a:
         weibolist,uid=get_weibolist(uid, conn, cur, preDay, sufDay)
         for weibo in weibolist:
@@ -91,11 +91,11 @@ def roundHandler(conn, cur, batchstr, batchtype):
     uidlist = get_uidlist(conn, cur)
     seta = "a"
     setb = "b"
-    uidlist_a = uid_extract_save(uidlist, 2500, batchtype + "_" + seta + "_" + batchstr) # 2500 大约 75%
-    uidlist_b = uid_extract_save(uidlist, 2500, batchtype + "_" + setb + "_" + batchstr)
+    uidlist_a = uid_extract_save(uidlist, 2500, batchtype + "_" + batchstr + "_" + seta) # 2500 大约 75%
+    uidlist_b = uid_extract_save(uidlist, 2500, batchtype + "_" + batchstr + "_" + setb)
     preDay = "2016-06-01"
     sufDay = "2016-07-01"
-    weibo_get_save(uidlist_a, uidlist_b, conn, cur, preDay, sufDay, batchtype + "_" + seta + "_" + batchstr, batchtype + "_" + setb + "_" + batchstr)
+    weibo_get_save(uidlist_a, uidlist_b, conn, cur, preDay, sufDay, batchtype + "_" + batchstr + "_" + seta, batchtype + "_" + batchstr + "_" + setb)
 
 
 if __name__ == "__main__":
