@@ -23,7 +23,6 @@ def weibo_ct_distribution(mysqlconn, cur):
 
     fout.close()
     mysqlconn.commit()
-    plotDataset = [[], []]
     fig = plt.figure()  
     ax=fig.add_subplot(111)
     ax.hist(np.array(dataSets), 1500, log=True)
